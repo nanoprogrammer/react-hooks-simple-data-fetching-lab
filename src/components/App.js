@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const App = () => {
   const [dogImage, setDogImage] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
  
@@ -10,24 +10,24 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         setDogImage(data.message);
-        setLoading(false);
+        setLoading(true);
       })
       .catch((error) => {
         console.error("Error fetching the dog image:", error);
         setLoading(false);
+      
       });
+      
   }, []);
+  if(!loading) return <p>Loading....</p>;
 
   return (
-    <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
+    <div>{
         <img src={dogImage} alt="A Random Dog" />
-      )}
+      }
     </div>
   );
-};
+}
 
 export default App;
 
